@@ -1,50 +1,50 @@
 provider "aws" {
-  region = "us-east-1"
+  region = var.region
 }
 
-resource "aws_vpc" "ES" {
+resource "aws_vpc" "EasyShop" {
 
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.cidr_vpc #"10.0.0.0/16"
   tags = {
-    name = "Easyshop"
+    name = "VPC-${var.application}" #"Easyshop"
   }
 
 }
 resource "aws_internet_gateway" "my_igw" {
-  vpc_id = aws_vpc.ES.id
+  vpc_id = aws_vpc.EasyShop.id
 
   tags = {
-    Name = "my-internet-gateway"
+    Name = "IGW-${var.application}"
   }
 }
 
 
 
 resource "aws_subnet" "ES_publicsubnet" {
-  vpc_id     = aws_vpc.ES.id
-  cidr_block = "10.0.1.0/24"
+  vpc_id     = aws_vpc.EasyShop.id
+  cidr_block = var.public_subnet1_cidr
   tags = {
-    Name = "ES_publicsubnet"
+    Name = "publicsubnet-${var.application}"
   }
 }
 
 resource "aws_subnet" "ES_privatesubnet" {
-  vpc_id     = aws_vpc.ES.id
-  cidr_block = "10.0.2.0/24"
+  vpc_id     = aws_vpc.EasyShop.id
+  cidr_block = var.private_subnet1_cidr
   tags = {
-    Name = "ES_privatesubnet"
+    Name = "privatesubnet-${var.application}"
   }
 }
 
 resource "aws_route_table" "route_table" {
-    vpc_id = aws_vpc.ES.id
-    route {
-        cidr_block = "0.0.0.0/0"
-        gateway_id = aws_internet_gateway.my_igw.id
-    }
-    tags = {
-        Name = "route_table"
-    }
+  vpc_id = aws_vpc.EasyShop.id
+  route {
+    cidr_block = var.cidr_block_internet_access #"0.0.0.0/0"
+    gateway_id = aws_internet_gateway.my_igw.id
+  }
+  tags = {
+    Name = "route_table-${var.application}"
+  }
 
 }
 
@@ -61,18 +61,18 @@ resource "aws_key_pair" "Easyshop_keypair" {
 }
 
 resource "aws_security_group" "Easyshop_securitygroup" {
-  name        = "Easyshop_securitygroup"
+  name        = "${var.application}_securitygroup"
   description = "Security group"
-  vpc_id      = aws_vpc.ES.id
+  vpc_id      = aws_vpc.EasyShop.id
   tags = {
-    Name = "Easyshop_securitygroup"
+    Name = "${var.application}_securitygroup"
   }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "Easyshop_ingress" {
   security_group_id = aws_security_group.Easyshop_securitygroup.id
 
-  cidr_ipv4   = "0.0.0.0/0"
+  cidr_ipv4   = var.cidr_block_internet_access
   from_port   = 80
   ip_protocol = "tcp"
   to_port     = 80
@@ -81,7 +81,7 @@ resource "aws_vpc_security_group_ingress_rule" "Easyshop_ingress" {
 resource "aws_vpc_security_group_ingress_rule" "Easyshop_ingress2" {
   security_group_id = aws_security_group.Easyshop_securitygroup.id
 
-  cidr_ipv4   = "0.0.0.0/0"
+  cidr_ipv4   = var.cidr_block_internet_access
   from_port   = 22
   ip_protocol = "tcp"
   to_port     = 22
@@ -89,21 +89,22 @@ resource "aws_vpc_security_group_ingress_rule" "Easyshop_ingress2" {
 resource "aws_vpc_security_group_egress_rule" "Easyshop_egress" {
   security_group_id = aws_security_group.Easyshop_securitygroup.id
 
-  cidr_ipv4   = "0.0.0.0/0"
+  cidr_ipv4   = var.cidr_block_internet_access
   ip_protocol = "-1"
 }
 
 resource "aws_instance" "easyshop_instance" {
   tags = {
-    name = "easyshop_instance"
+    Name = "${var.application}_instance"
   }
-  ami                    = "ami-0866a3c8686eaeeba"
-  instance_type          = "t2.micro"
-  key_name               = aws_key_pair.Easyshop_keypair.id
-  subnet_id              = aws_subnet.ES_publicsubnet.id
-  vpc_security_group_ids = [aws_security_group.Easyshop_securitygroup.id]
+  ami                         = var.instance_image #"ami-0866a3c8686eaeeba"
+  instance_type               = var.instance_type  #"t2.micro"
+  key_name                    = aws_key_pair.Easyshop_keypair.id
+  subnet_id                   = aws_subnet.ES_publicsubnet.id
+  vpc_security_group_ids      = [aws_security_group.Easyshop_securitygroup.id]
+  count                       = var.instance_count
   associate_public_ip_address = true
-  user_data              = file("${path.module}/docker_installation.sh")
+  user_data                   = file("${path.module}/docker_installation.sh")
 
 
 }

@@ -26,6 +26,6 @@ docker --version
 sudo docker run hello-world
 
 #to add user is docker group 
-sudo usermod -aG docker $USER
+sudo usermod -aG docker ubuntu
 
 newgrp docker

@@ -1,0 +1,9 @@
+region                     = "us-east-1"
+cidr_vpc                   = "10.0.0.0/16"
+application                = "EasyShop"
+public_subnet1_cidr        = "10.0.1.0/24"
+private_subnet1_cidr       = "10.0.2.0/24"
+instance_count             = 1
+instance_image             = "ami-0866a3c8686eaeeba"
+instance_type              = "t2.micro"
+cidr_block_internet_access = "0.0.0.0/0"
