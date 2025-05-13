@@ -11,16 +11,16 @@ services:
       - easyshop_db:/data/db
   easyshopfrontend:
     container_name: easyshop_frontend
-    image: siddhantkudal/easyshop:1
+    image: siddhantkudal/easyshop:latest
     ports:
       - "3000:3000"
     environment:
        MONGODB_URI: mongodb://easyshop_mongodb:27017/easyshop
-       NEXTAUTH_URL: http://easyshopfrontend:3000
-       NEXT_PUBLIC_API_URL: http://easyshopfrontend:3000/api
+      #  NEXTAUTH_URL: http://easyshopfrontend:3000
+      #  NEXT_PUBLIC_API_URL: http://easyshopfrontend:3000/api
 
-       PRODUCTION_NEXTAUTH_URL: http://easyshopfrontend
-       PRODUCTION_NEXT_PUBLIC_API_URL: http://easyshopfrontend/api
+       PRODUCTION_NEXTAUTH_URL: http://localhost
+       PRODUCTION_NEXT_PUBLIC_API_URL: http://localhost/api
        NEXTAUTH_SECRET: r12jcpiPdWUZGA1xmRCjTDw9gIoltkrV/L/1sGQXGvM=
        JWT_SECRET: 36b9bbc7dbaed10e8ef2354dc9a323823df3e05cf2a7cd8f8b2ba2ace519795e
     networks:
