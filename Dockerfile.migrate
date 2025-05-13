@@ -1,0 +1,11 @@
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY /package.json /package-lock.json .
+
+COPY /scripts ./scripts
+COPY .db ./.db
+COPY src/ ./src/
+RUN npm install
+
+CMD ["npm", "run", "migrate"]
+
