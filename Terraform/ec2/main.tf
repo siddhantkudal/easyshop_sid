@@ -78,6 +78,15 @@ resource "aws_vpc_security_group_ingress_rule" "Easyshop_ingress" {
   to_port     = 80
 }
 
+resource "aws_vpc_security_group_ingress_rule" "Easyshop_ingress3" {
+  security_group_id = aws_security_group.Easyshop_securitygroup.id
+
+  cidr_ipv4   = var.cidr_block_internet_access
+  from_port   = 8080
+  ip_protocol = "tcp"
+  to_port     = 8080
+}
+
 resource "aws_vpc_security_group_ingress_rule" "Easyshop_ingress2" {
   security_group_id = aws_security_group.Easyshop_securitygroup.id
 
@@ -106,5 +115,9 @@ resource "aws_instance" "easyshop_instance" {
   associate_public_ip_address = true
   user_data                   = file("${path.module}/docker_installation.sh")
 
-
+  root_block_device {
+    volume_size = 20 # <-- Increase this number to increase storage (in GB)
+    volume_type = "gp3"
+    delete_on_termination = true
+  }
 }
