@@ -36,6 +36,16 @@ resource "aws_subnet" "ES_privatesubnet" {
   }
 }
 
+resource "aws_subnet" "intrasubnet" {
+  vpc_id     = aws_vpc.EasyShop.id
+  cidr_block = var.intrasubnet_cidr
+  tags = {
+    Name = "intrasubnet-${var.application}"
+  }
+}
+
+
+
 resource "aws_route_table" "route_table" {
   vpc_id = aws_vpc.EasyShop.id
   route {

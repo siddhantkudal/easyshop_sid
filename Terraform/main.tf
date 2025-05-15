@@ -1,0 +1,37 @@
+provider "aws" {
+    region = "us-east-1"
+}
+
+module "EC2vpc" {
+    source = "./ec2"
+    region                     = "us-east-1"
+    cidr_vpc                   = "10.0.0.0/16"
+    application                = "EasyShop"
+    public_subnet1_cidr        = "10.0.1.0/24"
+    private_subnet1_cidr       = "10.0.2.0/24"
+    intrasubnet_cidr           = "10.0.5.0/24"
+    instance_count             = 1
+    instance_image             = "ami-0866a3c8686eaeeba"
+    instance_type              = "t2.medium"
+    cidr_block_internet_access = "0.0.0.0/0"
+}
+
+module "eks" {
+    source = "./EKS"
+    cluster_name = ""
+    vpcid=""
+    privatesubmet=""
+    intrasubnet=""
+    environment=""
+    kubversion=""
+    clusterVersion=""
+    instancetype=""
+    minimum_instance_count=""
+    maximum_instance_count=""
+    desired_size=""
+    typeInstance=""
+    protocol=""
+    from_port=""
+    to_port=""
+
+}
