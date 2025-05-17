@@ -1,19 +1,19 @@
 module "eks" {
-    source = "terraform-aws-modules/eks/aws"
-    version = var.kubversion   #"19.15.1"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "19.15.1"
   #cluster information (control plane)
-    cluster_name                   = var.cluster_name
-    cluster_version                = var.clusterVersion #"1.31"
-    cluster_endpoint_public_access = true
-    vpc_id                         = var.vpcid
-    subnet_ids                     = var.privatesubmet
-    
-#we are using intra subnet for control plane to create the API server inside VPC so that in oubic it is not accessible
-#intra subnet is used when servies inside vpc need to connect with each other here internet is not provide for intra subnet 
-    control_plane_subnet_ids = var.intrasubnet
+  cluster_name                   = var.cluster_name
+  cluster_version                = var.clusterVersion #"1.31"
+  cluster_endpoint_public_access = true
+  vpc_id                         = var.vpcid
+  subnet_ids                     = var.privatesubnet
+
+  #we are using intra subnet for control plane to create the API server inside VPC so that in oubic it is not accessible
+  #intra subnet is used when servies inside vpc need to connect with each other here internet is not provide for intra subnet 
+  control_plane_subnet_ids = var.intrasubnet
 
 
-#Cluster information (control plane)
+  #Cluster information (control plane)
   cluster_addons = {
     vpc-cni = {
       most_recent = true
@@ -126,7 +126,7 @@ resource "aws_iam_role_policy_attachment" "cni_policy" {
 resource "aws_security_group" "eks_cluster_sg" {
   name        = "${var.cluster_name}-eks-cluster-sg"
   description = "Allow EKS control plane to communicate with worker nodes"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = var.vpcid
 
   ingress {
     description = "K8s API server"

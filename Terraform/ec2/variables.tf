@@ -2,6 +2,10 @@ variable "region" {
   description = "Region if AWS"
 
 }
+variable "cluster_name" {
+  description = "Cluster name"
+}
+
 
 variable "cidr_vpc" {
   description = "cidr block fot VPC"
@@ -20,6 +24,10 @@ variable "private_subnet1_cidr" {
   description = "cidr block fot private_subnet1"
 }
 
+variable "intrasubnet_cidr" {
+  description = "cidr block fot intra subnet 1"
+
+}
 variable "instance_image" {
   description = "image id"
 }
@@ -33,4 +41,11 @@ variable "instance_count" {
 }
 variable "cidr_block_internet_access" {
   description = "cidr block 0.0.0.0 for all access"
+}
+variable "private_subnet2_cidr" {
+  description = "cidr block fot private_subnet1"
+}
+
+variable "intrasubnet2_cidr" {
+  description = "cidr block fot intra subnet 2"
 }
