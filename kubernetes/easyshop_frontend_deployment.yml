@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: easyshopuideployment
+  namespace: easyshop
+  labels:
+    app: easyshopUIdeployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: easyshopUI_deployment
+  template:
+    metadata:
+      name: easyshopUIpod
+      namespace: easyshop
+      labels:
+        app: easyshopUI_deployment
+    spec:
+      containers:
+        - name: easyshopui
+          image: siddhantkudal/easyshop:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGODBURI
+              valueFrom:
+                configMapKeyRef:
+                  name: easyshopconfig
+                  key: mongodburi
+            - name: PRODUCTIONNEXTAUTHURL
+              valueFrom:
+                configMapKeyRef:
+                  name: easyshopconfig
+                  key: production_url
+            - name: PRODUCTION_NEXT_PUBLIC_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: easyshopconfig
+                  key: production_apiurl
+            - name: NEXTAUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: easyshopsecret
+                  key: nextauth
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: easyshopsecret
+                  key: jwttoken
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          
+      
+

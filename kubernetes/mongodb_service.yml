@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: easyshopmongodb
+  namespace: easyshop
+spec:
+  selector:
+    app: easyshop_db_pod
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  

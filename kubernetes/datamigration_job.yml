@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: DBMigrate
+spec:
+  template:
+    spec:
+      containers:
+        - name: dbmigrate
+          image: siddhantkudal/docker_migrate:1
+      restartPolicy: Never
+  backoffLimit: 4

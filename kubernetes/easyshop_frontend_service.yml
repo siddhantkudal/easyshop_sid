@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: easyshopservice
+  namespace: easyshop
+spec:
+  selector:
+    app: easyshopUI_deployment
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  
