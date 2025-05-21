@@ -5,8 +5,8 @@ metadata:
   namespace: easyshop
 data:
   mongodburi: mongodb://easyshopmongodb:27017/easyshop
-  production_url: http://localhost
-  production_apiurl: http://localhost/api
+  production_url: http://easyshopservice
+  production_apiurl: http://easyshopservice/api
 
 
   
