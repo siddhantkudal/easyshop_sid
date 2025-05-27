@@ -5,7 +5,7 @@ metadata:
   namespace: easyshop
   labels:
     app: easyshopUIdeployment
-spec:
+spec:  
   replicas: 2
   selector:
     matchLabels:
@@ -24,12 +24,12 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: MONGODBURI
+            - name: MONGODB_URI
               valueFrom:
                 configMapKeyRef:
                   name: easyshopconfig
                   key: mongodburi
-            - name: PRODUCTIONNEXTAUTHURL
+            - name: PRODUCTION_NEXTAUTH_URL
               valueFrom:
                 configMapKeyRef:
                   name: easyshopconfig
