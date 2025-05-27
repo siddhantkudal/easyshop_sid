@@ -4,9 +4,9 @@ metadata:
   name: easyshopconfig
   namespace: easyshop
 data:
-  mongodburi: mongodb://easyshopmongodb:27017/easyshop
-  production_url: http://easyshopservice
-  production_apiurl: http://easyshopservice/api
+  mongodburi: mongodb://easyshopmongodb.easyshop.svc.cluster.local:27017/easyshop
+  production_url: http://ae7c08651db714a2da67fbd59f5c90db-665169487.eu-north-1.elb.amazonaws.com/
+  production_apiurl: http://ae7c08651db714a2da67fbd59f5c90db-665169487.eu-north-1.elb.amazonaws.com/api
 
 
   
