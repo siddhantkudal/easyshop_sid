@@ -1,0 +1,101 @@
+
+Report Summary
+
+┌───────────────────┬──────┬─────────────────┬─────────┐
+│      Target       │ Type │ Vulnerabilities │ Secrets │
+├───────────────────┼──────┼─────────────────┼─────────┤
+│ package-lock.json │ npm  │        9        │    -    │
+├───────────────────┼──────┼─────────────────┼─────────┤
+│ yarn.lock         │ yarn │        9        │    -    │
+└───────────────────┴──────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+
+For OSS Maintainers: VEX Notice
+--------------------------------
+If you're an OSS maintainer and Trivy has detected vulnerabilities in your project that you believe are not actually exploitable, consider issuing a VEX (Vulnerability Exploitability eXchange) statement.
+VEX allows you to communicate the actual status of vulnerabilities in your project, improving security transparency and reducing false positives for your users.
+Learn more and start using VEX: https://trivy.dev/v0.62/docs/supply-chain/vex/repo#publishing-vex-documents
+
+To disable this notice, set the TRIVY_DISABLE_VEX_NOTICE environment variable.
+
+
+package-lock.json (npm)
+=======================
+Total: 9 (UNKNOWN: 0, LOW: 1, MEDIUM: 3, HIGH: 4, CRITICAL: 1)
+
+┌────────────────┬────────────────┬──────────┬────────┬───────────────────┬─────────────────────────────────┬──────────────────────────────────────────────────────────────┐
+│    Library     │ Vulnerability  │ Severity │ Status │ Installed Version │          Fixed Version          │                            Title                             │
+├────────────────┼────────────────┼──────────┼────────┼───────────────────┼─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ @babel/runtime │ CVE-2025-27789 │ MEDIUM   │ fixed  │ 7.23.9            │ 7.26.10, 8.0.0-alpha.17         │ Babel is a compiler for writing next generation JavaScript.  │
+│                │                │          │        │                   │                                 │ When using ......                                            │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-27789                   │
+├────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ axios          │ CVE-2025-27152 │ HIGH     │        │ 1.7.9             │ 1.8.2, 0.30.0                   │ axios: Possible SSRF and Credential Leakage via Absolute URL │
+│                │                │          │        │                   │                                 │ in axios Requests...                                         │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-27152                   │
+├────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ next           │ CVE-2025-29927 │ CRITICAL │        │ 14.1.0            │ 13.5.9, 14.2.25, 15.2.3, 12.3.5 │ nextjs: Authorization Bypass in Next.js Middleware           │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-29927                   │
+│                ├────────────────┼──────────┤        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-34351 │ HIGH     │        │                   │ 14.1.1                          │ Next.js Server-Side Request Forgery in Server Actions        │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2024-34351                   │
+│                ├────────────────┤          │        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-46982 │          │        │                   │ 13.5.7, 14.2.10                 │ Next.js Cache Poisoning                                      │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2024-46982                   │
+│                ├────────────────┤          │        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-51479 │          │        │                   │ 14.2.15                         │ next.js: next: authorization bypass in Next.js               │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2024-51479                   │
+│                ├────────────────┼──────────┤        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-47831 │ MEDIUM   │        │                   │ 14.2.7                          │ next.js: Next.js image optimization has Denial of Service    │
+│                │                │          │        │                   │                                 │ condition                                                    │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2024-47831                   │
+│                ├────────────────┤          │        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-56332 │          │        │                   │ 13.5.8, 14.2.21, 15.1.2         │ next.js: Next.js Vulnerable to Denial of Service (DoS) with  │
+│                │                │          │        │                   │                                 │ Server Actions                                               │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2024-56332                   │
+│                ├────────────────┼──────────┤        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2025-32421 │ LOW      │        │                   │ 14.2.24, 15.1.6                 │ next.js: Next.js Race Condition to Cache Poisoning           │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-32421                   │
+└────────────────┴────────────────┴──────────┴────────┴───────────────────┴─────────────────────────────────┴──────────────────────────────────────────────────────────────┘
+
+yarn.lock (yarn)
+================
+Total: 9 (UNKNOWN: 0, LOW: 1, MEDIUM: 3, HIGH: 4, CRITICAL: 1)
+
+┌────────────────┬────────────────┬──────────┬────────┬───────────────────┬─────────────────────────────────┬──────────────────────────────────────────────────────────────┐
+│    Library     │ Vulnerability  │ Severity │ Status │ Installed Version │          Fixed Version          │                            Title                             │
+├────────────────┼────────────────┼──────────┼────────┼───────────────────┼─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ @babel/runtime │ CVE-2025-27789 │ MEDIUM   │ fixed  │ 7.23.9            │ 7.26.10, 8.0.0-alpha.17         │ Babel is a compiler for writing next generation JavaScript.  │
+│                │                │          │        │                   │                                 │ When using ......                                            │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-27789                   │
+├────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ axios          │ CVE-2025-27152 │ HIGH     │        │ 1.7.9             │ 1.8.2, 0.30.0                   │ axios: Possible SSRF and Credential Leakage via Absolute URL │
+│                │                │          │        │                   │                                 │ in axios Requests...                                         │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-27152                   │
+├────────────────┼────────────────┼──────────┤        ├───────────────────┼─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│ next           │ CVE-2025-29927 │ CRITICAL │        │ 14.1.0            │ 13.5.9, 14.2.25, 15.2.3, 12.3.5 │ nextjs: Authorization Bypass in Next.js Middleware           │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-29927                   │
+│                ├────────────────┼──────────┤        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-34351 │ HIGH     │        │                   │ 14.1.1                          │ Next.js Server-Side Request Forgery in Server Actions        │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2024-34351                   │
+│                ├────────────────┤          │        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-46982 │          │        │                   │ 13.5.7, 14.2.10                 │ Next.js Cache Poisoning                                      │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2024-46982                   │
+│                ├────────────────┤          │        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-51479 │          │        │                   │ 14.2.15                         │ next.js: next: authorization bypass in Next.js               │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2024-51479                   │
+│                ├────────────────┼──────────┤        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-47831 │ MEDIUM   │        │                   │ 14.2.7                          │ next.js: Next.js image optimization has Denial of Service    │
+│                │                │          │        │                   │                                 │ condition                                                    │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2024-47831                   │
+│                ├────────────────┤          │        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2024-56332 │          │        │                   │ 13.5.8, 14.2.21, 15.1.2         │ next.js: Next.js Vulnerable to Denial of Service (DoS) with  │
+│                │                │          │        │                   │                                 │ Server Actions                                               │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2024-56332                   │
+│                ├────────────────┼──────────┤        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2025-32421 │ LOW      │        │                   │ 14.2.24, 15.1.6                 │ next.js: Next.js Race Condition to Cache Poisoning           │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-32421                   │
+└────────────────┴────────────────┴──────────┴────────┴───────────────────┴─────────────────────────────────┴──────────────────────────────────────────────────────────────┘
