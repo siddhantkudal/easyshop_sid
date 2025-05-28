@@ -1,12 +1,16 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: DBMigrate
+  name: dbmigrate
+  namespace: easyshop
 spec:
   template:
     spec:
       containers:
         - name: dbmigrate
           image: siddhantkudal/docker_migrate:1
+          env:
+          - name: MONGODB_URI
+            value: mongodb://easyshopmongodb.easyshop.svc.cluster.local:27017/easyshop
       restartPolicy: Never
   backoffLimit: 4
