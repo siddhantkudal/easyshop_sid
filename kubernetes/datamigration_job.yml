@@ -2,10 +2,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: dbmigrate
-<<<<<<< HEAD
-  namespace: easyshop
-=======
->>>>>>> 0052cdefb19de7b6dfacb368b0eff2bab7083297
 spec:
   template:
     spec:
