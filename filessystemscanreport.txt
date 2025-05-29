@@ -4,9 +4,9 @@ Report Summary
 ┌───────────────────┬──────┬─────────────────┬─────────┐
 │      Target       │ Type │ Vulnerabilities │ Secrets │
 ├───────────────────┼──────┼─────────────────┼─────────┤
-│ package-lock.json │ npm  │        9        │    -    │
+│ package-lock.json │ npm  │       10        │    -    │
 ├───────────────────┼──────┼─────────────────┼─────────┤
-│ yarn.lock         │ yarn │        9        │    -    │
+│ yarn.lock         │ yarn │       10        │    -    │
 └───────────────────┴──────┴─────────────────┴─────────┘
 Legend:
 - '-': Not scanned
@@ -24,7 +24,7 @@ To disable this notice, set the TRIVY_DISABLE_VEX_NOTICE environment variable.
 
 package-lock.json (npm)
 =======================
-Total: 9 (UNKNOWN: 0, LOW: 1, MEDIUM: 3, HIGH: 4, CRITICAL: 1)
+Total: 10 (UNKNOWN: 0, LOW: 2, MEDIUM: 3, HIGH: 4, CRITICAL: 1)
 
 ┌────────────────┬────────────────┬──────────┬────────┬───────────────────┬─────────────────────────────────┬──────────────────────────────────────────────────────────────┐
 │    Library     │ Vulnerability  │ Severity │ Status │ Installed Version │          Fixed Version          │                            Title                             │
@@ -59,11 +59,15 @@ Total: 9 (UNKNOWN: 0, LOW: 1, MEDIUM: 3, HIGH: 4, CRITICAL: 1)
 │                ├────────────────┼──────────┤        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
 │                │ CVE-2025-32421 │ LOW      │        │                   │ 14.2.24, 15.1.6                 │ next.js: Next.js Race Condition to Cache Poisoning           │
 │                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-32421                   │
+│                ├────────────────┤          │        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2025-48068 │          │        │                   │ 15.2.2                          │ Information exposure in Next.js dev server due to lack of    │
+│                │                │          │        │                   │                                 │ origin verification...                                       │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-48068                   │
 └────────────────┴────────────────┴──────────┴────────┴───────────────────┴─────────────────────────────────┴──────────────────────────────────────────────────────────────┘
 
 yarn.lock (yarn)
 ================
-Total: 9 (UNKNOWN: 0, LOW: 1, MEDIUM: 3, HIGH: 4, CRITICAL: 1)
+Total: 10 (UNKNOWN: 0, LOW: 2, MEDIUM: 3, HIGH: 4, CRITICAL: 1)
 
 ┌────────────────┬────────────────┬──────────┬────────┬───────────────────┬─────────────────────────────────┬──────────────────────────────────────────────────────────────┐
 │    Library     │ Vulnerability  │ Severity │ Status │ Installed Version │          Fixed Version          │                            Title                             │
@@ -98,4 +102,8 @@ Total: 9 (UNKNOWN: 0, LOW: 1, MEDIUM: 3, HIGH: 4, CRITICAL: 1)
 │                ├────────────────┼──────────┤        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
 │                │ CVE-2025-32421 │ LOW      │        │                   │ 14.2.24, 15.1.6                 │ next.js: Next.js Race Condition to Cache Poisoning           │
 │                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-32421                   │
+│                ├────────────────┤          │        │                   ├─────────────────────────────────┼──────────────────────────────────────────────────────────────┤
+│                │ CVE-2025-48068 │          │        │                   │ 15.2.2                          │ Information exposure in Next.js dev server due to lack of    │
+│                │                │          │        │                   │                                 │ origin verification...                                       │
+│                │                │          │        │                   │                                 │ https://avd.aquasec.com/nvd/cve-2025-48068                   │
 └────────────────┴────────────────┴──────────┴────────┴───────────────────┴─────────────────────────────────┴──────────────────────────────────────────────────────────────┘
