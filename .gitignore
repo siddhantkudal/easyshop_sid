@@ -115,3 +115,5 @@ secrets.tfvars
 # CLI configuration files
 .terraformrc
 terraform.rc
+kubernetes/alb_extra_permissions.json
+kubernetes/iam_policy.json

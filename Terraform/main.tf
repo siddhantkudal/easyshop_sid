@@ -19,22 +19,22 @@ module "EC2vpc" {
   cluster_name="sgk-eks-cluster"
 }
 
-module "eks" {
-  source                 = "./EKS"
-  cluster_name           = "sgk-eks-cluster"
-  vpcid                  = module.EC2vpc.vpcId
-  privatesubnet          = [module.EC2vpc.privatesubnetid,module.EC2vpc.privatesubnetid2]
-  intrasubnet            = [module.EC2vpc.intrasubnetid, module.EC2vpc.intrasubnetid2]
-  environment            = "DEV"
-  kubversion             = "19.15.1"
-  clusterVersion         = "1.31"
-  instancetype           = "t2.medium"
-  minimum_instance_count = "2"
-  maximum_instance_count = "2"
-  desired_size           = "2"
-  typeInstance           = "ON_DEMAND"
-  protocol               = "tcp"
-  from_port              = "1025"
-  to_port                = "65535"
+# module "eks" {
+#   source                 = "./EKS"
+#   cluster_name           = "sgk-eks-cluster"
+#   vpcid                  = module.EC2vpc.vpcId
+#   privatesubnet          = [module.EC2vpc.privatesubnetid,module.EC2vpc.privatesubnetid2]
+#   intrasubnet            = [module.EC2vpc.intrasubnetid, module.EC2vpc.intrasubnetid2]
+#   environment            = "DEV"
+#   kubversion             = "19.15.1"
+#   clusterVersion         = "1.31"
+#   instancetype           = "t2.medium"
+#   minimum_instance_count = "2"
+#   maximum_instance_count = "2"
+#   desired_size           = "2"
+#   typeInstance           = "ON_DEMAND"
+#   protocol               = "tcp"
+#   from_port              = "1025"
+#   to_port                = "65535"
 
-}
+# }
