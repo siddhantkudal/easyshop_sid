@@ -156,7 +156,8 @@ resource "aws_route_table_association" "private_routetable_association_2" {
 
 resource "aws_key_pair" "Easyshop_keypair" {
   key_name   = "file1"
-  public_key = file("E:/DEVOPS/Project/EasyShop/easyshop_sid/Terraform/ec2/ssh_keys/file1.pub")
+  #public_key = file("E:/DEVOPS/Project/EasyShop/easyshop_sid/Terraform/ec2/ssh_keys/file1.pub")
+  public_key = file("${path.module}/ssh_keys/file1.pub")
 }
 
 resource "aws_security_group" "Easyshop_securitygroup" {
