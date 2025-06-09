@@ -19,22 +19,38 @@ resource "aws_internet_gateway" "my_igw" {
 }
 
 
-
-resource "aws_subnet" "ES_publicsubnet" {
+ 
+resource "aws_subnet" "ES_publicsubnet1" {
   vpc_id     = aws_vpc.EasyShop.id
-  cidr_block = var.public_subnet1_cidr
-  
+  cidr_block = var.public_subnet1_cidr #"10.0.1.0/24"
+  map_public_ip_on_launch = true
+  availability_zone = "${var.region}a"
   tags = {
-    Name = "publicsubnet-${var.application}"
+    Name = "publicsubnet1-${var.application}"
+    "kubernetes.io/role/elb" = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
-resource "aws_subnet" "ES_privatesubnet" {
+resource "aws_subnet" "ES_publicsubnet2" {
   vpc_id     = aws_vpc.EasyShop.id
-  cidr_block = var.private_subnet1_cidr
-  availability_zone = "us-east-1a"
+  cidr_block = var.public_subnet2_cidr #"10.0.2.0/24"
+  map_public_ip_on_launch = true
+  availability_zone = "${var.region}b"
   tags = {
-    Name                                        = "privatesubnet-${var.application}"
+    Name = "publicsubnet2-${var.application}"
+    "kubernetes.io/role/elb" = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+  }
+}
+
+
+resource "aws_subnet" "ES_privatesubnet1" {
+  vpc_id     = aws_vpc.EasyShop.id
+  cidr_block = var.private_subnet1_cidr #"10.0.3.0/24"
+  availability_zone = "${var.region}a"
+  tags = {
+    Name                                        = "privatesubnet1-${var.application}"
     "kubernetes.io/role/internal-elb"           = "1"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
@@ -42,8 +58,8 @@ resource "aws_subnet" "ES_privatesubnet" {
 
 resource "aws_subnet" "ES_privatesubnet2" {
   vpc_id     = aws_vpc.EasyShop.id
-  cidr_block = var.private_subnet2_cidr
-  availability_zone = "us-east-1b"
+  cidr_block = var.private_subnet2_cidr #"10.0.4.0/24"
+  availability_zone = "${var.region}b"
   tags = {
     Name = "privatesubnet2-${var.application}"
     "kubernetes.io/role/internal-elb"           = "1"
@@ -51,12 +67,12 @@ resource "aws_subnet" "ES_privatesubnet2" {
   }
 }
 
-resource "aws_subnet" "intrasubnet" {
+resource "aws_subnet" "intrasubnet1" {
   vpc_id     = aws_vpc.EasyShop.id
-  cidr_block = var.intrasubnet_cidr
-  availability_zone = "us-east-1a"
+  cidr_block = var.intrasubnet1_cidr #"10.0.5.0/24"
+  availability_zone = "${var.region}a"
   tags = {
-    Name = "intrasubnet-${var.application}"
+    Name = "intrasubnet1-${var.application}"
      "kubernetes.io/role/internal-elb"           = "1"
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
@@ -64,8 +80,8 @@ resource "aws_subnet" "intrasubnet" {
 
 resource "aws_subnet" "intrasubnet2" {
   vpc_id     = aws_vpc.EasyShop.id
-  cidr_block = var.intrasubnet2_cidr
-  availability_zone = "us-east-1b"
+  cidr_block = var.intrasubnet2_cidr #"10.0.6.0/24"
+  availability_zone = "${var.region}b"
   tags = {
     Name = "intrasubnet2-${var.application}"
      "kubernetes.io/role/internal-elb"           = "1"
@@ -85,8 +101,13 @@ resource "aws_route_table" "route_table" {
 
 }
 
-resource "aws_route_table_association" "routetable_association_1" {
-  subnet_id      = aws_subnet.ES_publicsubnet.id
+resource "aws_route_table_association" "Public_routetable_association_1" {
+  subnet_id      = aws_subnet.ES_publicsubnet1.id
+  route_table_id = aws_route_table.route_table.id
+}
+
+resource "aws_route_table_association" "Public_routetable_association_2" {
+  subnet_id      = aws_subnet.ES_publicsubnet2.id
   route_table_id = aws_route_table.route_table.id
 }
 
@@ -99,7 +120,7 @@ resource "aws_eip" "nat_eip" {
 
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.nat_eip.id
-  subnet_id     = aws_subnet.ES_publicsubnet.id
+  subnet_id     = aws_subnet.ES_publicsubnet1.id
 
   tags = {
     Name = "NAT-Gateway-${var.application}"
@@ -121,12 +142,12 @@ resource "aws_route_table" "private_route_table" {
   }
 }
 
-resource "aws_route_table_association" "private_1" {
-  subnet_id      = aws_subnet.ES_privatesubnet.id
+resource "aws_route_table_association" "private_routetable_association_1" {
+  subnet_id      = aws_subnet.ES_privatesubnet1.id
   route_table_id = aws_route_table.private_route_table.id
 }
 
-resource "aws_route_table_association" "private_2" {
+resource "aws_route_table_association" "private_routetable_association_2" {
   subnet_id      = aws_subnet.ES_privatesubnet2.id
   route_table_id = aws_route_table.private_route_table.id
 }
@@ -186,8 +207,8 @@ resource "aws_instance" "easyshop_instance" {
   }
   ami                         = var.instance_image #"ami-0866a3c8686eaeeba"
   instance_type               = var.instance_type  #"t2.micro"
-  key_name                    = aws_key_pair.Easyshop_keypair.id
-  subnet_id                   = aws_subnet.ES_publicsubnet.id
+  key_name                    = aws_key_pair.Easyshop_keypair.key_name
+  subnet_id                   = aws_subnet.ES_publicsubnet1.id
   vpc_security_group_ids      = [aws_security_group.Easyshop_securitygroup.id]
   count                       = var.instance_count
   associate_public_ip_address = true

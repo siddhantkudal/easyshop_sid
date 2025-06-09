@@ -19,12 +19,14 @@ variable "application" {
 variable "public_subnet1_cidr" {
   description = "cidr block fot public_subnet1"
 }
-
+variable "public_subnet2_cidr"{
+  description = "cidr block fot public_subnet2"
+}
 variable "private_subnet1_cidr" {
   description = "cidr block fot private_subnet1"
 }
 
-variable "intrasubnet_cidr" {
+variable "intrasubnet1_cidr" {
   description = "cidr block fot intra subnet 1"
 
 }

@@ -7,8 +7,8 @@ module "eks" {
   cluster_endpoint_public_access = true
   vpc_id                         = var.vpcid
   subnet_ids                     = var.privatesubnet
-
-  #we are using intra subnet for control plane to create the API server inside VPC so that in oubic it is not accessible
+  enable_irsa = true
+  #we are using intra subnet for control plane to create the API server inside VPC so that in public it is not accessible
   #intra subnet is used when servies inside vpc need to connect with each other here internet is not provide for intra subnet 
   control_plane_subnet_ids = var.intrasubnet
 
@@ -62,6 +62,28 @@ module "eks" {
     Terraform   = "true"
   }
 
+}
+
+
+
+
+module "alb_irsa_role" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+  version = "~> 5.0"
+
+  role_name_prefix = "alb-controller"
+  #cluster_name     = var.cluster_name
+  attach_load_balancer_controller_policy = true
+  oidc_providers = {
+    main = {
+      provider_arn = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:aws-load-balancer-controller"]
+    }
+  }
+
+  tags = {
+    Environment = var.environment
+  }
 }
 
 
@@ -122,6 +144,22 @@ resource "aws_iam_role_policy_attachment" "cni_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
   role       = aws_iam_role.eks_node_role.name
 }
+
+data "http" "alb_ingress_policy" {
+  url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json"
+}
+
+resource "aws_iam_policy" "alb_ingress_policy" {
+  name   = "AWSLoadBalancerControllerIAMPolicy1"
+  policy = data.http.alb_ingress_policy.body
+} 
+
+resource "aws_iam_role_policy_attachment" "alb_policy_attach" {
+  role       = aws_iam_role.eks_node_role.name
+  policy_arn = aws_iam_policy.alb_ingress_policy.arn
+}
+
+
 
 resource "aws_security_group" "eks_cluster_sg" {
   name        = "${var.cluster_name}-eks-cluster-sg"
