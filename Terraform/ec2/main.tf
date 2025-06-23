@@ -112,7 +112,7 @@ resource "aws_route_table_association" "Public_routetable_association_2" {
 }
 
 resource "aws_eip" "nat_eip" {
-  vpc = true
+  #vpc = true
   tags = {
     Name = "EIP-NAT-${var.application}"
   }
