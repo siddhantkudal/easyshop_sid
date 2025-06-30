@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/subnets: "subnet-093a676d174ae3393,subnet-0596312ccf95185f4"
+    alb.ingress.kubernetes.io/subnets: "subnet-0a34e2b55f1431f03,subnet-027e87e7f99ac8763"
     alb.ingress.kubernetes.io/healthcheck-path: /
     alb.ingress.kubernetes.io/healthcheck-port: "3000"
 spec:
