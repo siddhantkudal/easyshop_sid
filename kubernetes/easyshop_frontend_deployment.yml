@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: easyshopui
-          image: siddhantkudal/easyshop:35
+          image: siddhantkudal/easyshop:36
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
